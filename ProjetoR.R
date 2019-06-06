@@ -27,14 +27,133 @@ for (i in 1:length(got$Nota)){
 
 #Quinta Questão:
 got = read.csv("planilha_got.csv")
-len = table(got$Temporada)
-t = 1
-x = 1
-for(i in 1:(t-1)){
-  x = x + as.numeric(len[i])
+b = length(table(got$Temporada))
+minimax = function(t){
+  len = table(got$Temporada)
+  s = 0
+  m = data.frame(nm = c(), nt = c())
+  if (t > 1){
+    for(i in 1:(t-1)){
+      s = s + as.numeric(len[i])
+    }
+  }
+  x = s + 1
+  for (i in 1:len[t]){
+    m = data.frame(nm = c(as.character(m$nm), as.character(got$Episodio[x])), nt = c(m$nt, got$Nota[x]))
+    x = x + 1
+  }
+  a = which.max(m$nt) + s
+  b = which.min(m$nt) + s
+  maximo = data.frame(ep_max = got$Episodio[a], nt_max = got$Nota[a])
+  minimo = data.frame(ep_min = got$Episodio[b], nt_min = got$Nota[b])
+  resp = data.frame(minimo, maximo)
+  return(resp)
 }
 
+mother = function(){
+  resp = c()
+  for (i in 1:b) {
+    aux = minimax(i)
+    resp = c(resp, toString(aux$ep_min), toString(aux$ep_max))
+  }
+  return(resp)
+}
+
+nome = c()
+nota = c()
+temp = c()
+for (i in 1: b){
+  aux = minimax(i)
+  nome = c(nome, toString(aux$ep_min), toString(aux$ep_max))
+  nota = c(nota, aux$nt_min, aux$nt_max)
+  temp = c(temp, i, i)
+}
+
+final = data.frame(TÍTULO = nome, NOTA = nota, TEMPORADA = temp)
+print(final)
+
+
+#Sexta Questão:
+got = read.csv("planilha_got.csv")
+index = function(){
+  c = length(got$Temporada)
+  t = 1
+  dp = c()
+  au = c()
+  for (i in 1:c){
+    if (got$Temporada[i] == t){
+      au = c(au, got$Audiencia.Em.milhoes.[i])
+    }else {
+      dpt = sd(au)
+      dp = c(dp, dpt)
+      t = t + 1
+      au = c(got$Audiencia.Em.milhoes.[i])
+    }
+  }
+  return(which.min(dp))
+}
+a = index()
+print(a)
+
+
+#Sétima Questão
+got = read.csv("planilha_got.csv")
+zeta = function(nome){
+  c = length(got$Temporada)
+  m = c()
+  for (i in 1:c){
+    a = got$Personagens[i]
+    p = unlist(strsplit(as.character(a), ","))
+    if(any(p == nome)) {
+      m = c(m, got$Nota[i])
+    }
+  }
+  me = mean(m)
+  return(me)
+}
+nome = "Brienne of Tarth(Gwendoline Christie)"
+gg = zeta(nome)
+print(gg)
+
+
+#Oitava Questão:
+got = read.csv("planilha_got.csv")
+t = 4
+len = table(got$Temporada)
+s = 1
+m = data.frame(nm = c(), nt = c())
+if (t > 1){
+  for(i in 1:(t-1)){
+    s = s + as.numeric(len[i])
+  }
+}
+p = c()
+for (i in 1:len[t]){
+  a = got$Personagens[s]
+  au = unlist(strsplit(as.character(a), ","))
+  p = c(p, au)
+  s = s + 1
+}
+g = table(p)
+l = list()
+for(i in 1:length(g)) {
+  if (g[i] == 1){
+    
+  }
+}
 print(x)
+l = strsplit(as.character(x), "")
+print(l)
+
+a = "Teu"
+print(a)
+a = paste(a, "Cu")
+print(a)
+b = strsplit(as.character(a), " ")
+print(b)
+mode(b)
+
+
 
 
 
