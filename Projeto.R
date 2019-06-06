@@ -9,11 +9,19 @@ moda = function(nota){
 print(got)
 
 #Segunda e Terceira Questão:
-result2 = moda(got$Nota)
+result1 = mean(got$Nota)
+result2 = sd(got$Nota)
+result3 = moda(got$Nota)
+print(result1)
 print(result2)
+print(result3)
 
 #Terceira Questão:
-result3 = moda(got$Audiencia.Em.milhoes.)
+result1 = mean(got$Audiencia.Em.milhoes.)
+result2 = sd(got$Audiencia.Em.milhoes.)
+result3 = median(got$Audiencia.Em.milhoes.)
+print(result1)
+print(result2)
 print(result3)
 
 #Quarta Questâo:
@@ -24,6 +32,7 @@ for (i in 1:length(got$Nota)){
     nome = c(nome, toString(got$Episodio[i]))
   }
 }
+print(nome)
 
 #Quinta Questão:
 got = read.csv("planilha_got.csv")
@@ -118,46 +127,59 @@ print(gg)
 
 #Oitava Questão:
 got = read.csv("planilha_got.csv")
+z = function(t){
+  len = table(got$Temporada)
+  s = 1
+  if (t > 1){
+    for(i in 1:(t-1)){
+      s = s + as.numeric(len[i])
+    }
+  }
+  p = c()
+  for (i in 1:len[t]){
+    a = got$Personagens[s]
+    au = unlist(strsplit(as.character(a), ","))
+    p = c(p, au)
+    s = s + 1
+  }
+  g = table(p)
+  p= c()
+  for(i in 1:length(g)) {
+    if (g[i] == 1){
+      p = c(p, names(g[i]))
+    }
+  }
+  return(p)
+}
+
 t = 4
-len = table(got$Temporada)
-s = 1
-m = data.frame(nm = c(), nt = c())
-if (t > 1){
-  for(i in 1:(t-1)){
-    s = s + as.numeric(len[i])
-  }
-}
-p = c()
-for (i in 1:len[t]){
-  a = got$Personagens[s]
-  au = unlist(strsplit(as.character(a), ","))
-  p = c(p, au)
-  s = s + 1
-}
-g = table(p)
-l = list()
-for(i in 1:length(g)) {
-  if (g[i] == 1){
-    
-  }
-}
+x = z(t)
 print(x)
-l = strsplit(as.character(x), "")
-print(l)
-
-a = "Teu"
-print(a)
-a = paste(a, "Cu")
-print(a)
-b = strsplit(as.character(a), " ")
-print(b)
-mode(b)
 
 
-
-
-
-
-
-
-
+#Nona Questão:
+got = read.csv("planilha_got.csv")
+graphic = function(nome) {
+  c = length(got$Temporada)
+  t = 1
+  i = 1
+  qq = c()
+  while (i <= c){
+    if (got$Temporada[i] == t){
+      a = got$Personagens[i]
+      au = unlist(strsplit(as.character(a), ","))
+      if (any(au == nome)){
+        qq = c(qq, t)
+      }
+      i = i + 1
+    }else {
+      t = t + 1
+    }
+  }
+  brk = c(0, 1, 2, 3, 4, 5, 6, 7, 8)
+  graph = hist(qq, main = nome, xlab = "Temporada", ylab = "Ocorrência", xlim = c(0, 9), ylim = c(0, 10), right = TRUE, breaks = brk, col = "yellow", border = "black")
+} 
+#Cersei Lannister(Lena Headey)
+#Bran Stark(Isaac Hempstead)
+nm = "Eddard 'Ned' Stark(Sean Bean)"
+graphic(nm)
