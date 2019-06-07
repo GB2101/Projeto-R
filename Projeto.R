@@ -1,3 +1,7 @@
+#Projeto de Estatística
+#Gabriel Braz Cavalcante Silva (gbcs)
+#Eduardo Guimarães Medeiros (egm3)
+
 got = read.csv("planilha_got.csv")
 
 moda = function(nota){
@@ -25,17 +29,19 @@ print(result2)
 print(result3)
 
 #Quarta Questâo:
-got = read.csv("planilha_got.csv")
-nome = c()
-for (i in 1:length(got$Nota)){
-  if (got$Nota[i] >= 9){
-    nome = c(nome, toString(got$Episodio[i]))
+nota_9 = function(){
+  nome = c()
+  for (i in 1:length(got$Nota)){
+    if (got$Nota[i] >= 9){
+      nome = c(nome, toString(got$Episodio[i]))
+    }
   }
+  return(nome)
 }
-print(nome)
+res = nota_9()
+print(res)
 
 #Quinta Questão:
-got = read.csv("planilha_got.csv")
 b = length(table(got$Temporada))
 minimax = function(t){
   len = table(got$Temporada)
@@ -59,32 +65,25 @@ minimax = function(t){
   return(resp)
 }
 
-mother = function(){
-  resp = c()
+notas = function(){
+  ep = c()
+  nt = c()
+  te = c()
   for (i in 1:b) {
     aux = minimax(i)
-    resp = c(resp, toString(aux$ep_min), toString(aux$ep_max))
+    ep = c(ep, toString(aux$ep_min), toString(aux$ep_max))
+    nt = c(nt, aux$nt_min, aux$nt_max)
+    te = c(te, i, i)
   }
+  resp = data.frame(TÍTULO = ep, NOTA = nt, TEMPORADA = te)
   return(resp)
 }
 
-nome = c()
-nota = c()
-temp = c()
-for (i in 1: b){
-  aux = minimax(i)
-  nome = c(nome, toString(aux$ep_min), toString(aux$ep_max))
-  nota = c(nota, aux$nt_min, aux$nt_max)
-  temp = c(temp, i, i)
-}
-
-final = data.frame(TÍTULO = nome, NOTA = nota, TEMPORADA = temp)
-print(final)
-
+res = notas()
+print(res)
 
 #Sexta Questão:
-got = read.csv("planilha_got.csv")
-index = function(){
+desivo_padrao = function(){
   c = length(got$Temporada)
   t = 1
   dp = c()
@@ -101,13 +100,12 @@ index = function(){
   }
   return(which.min(dp))
 }
-a = index()
-print(a)
+res = desivo_padrao()
+print(res)
 
 
 #Sétima Questão
-got = read.csv("planilha_got.csv")
-zeta = function(nome){
+personagem = function(nome){
   c = length(got$Temporada)
   m = c()
   for (i in 1:c){
@@ -121,13 +119,12 @@ zeta = function(nome){
   return(me)
 }
 nome = "Brienne of Tarth(Gwendoline Christie)"
-gg = zeta(nome)
-print(gg)
+res = personagem(nome)
+print(res)
 
 
 #Oitava Questão:
-got = read.csv("planilha_got.csv")
-z = function(t){
+unico_episodio = function(t){
   len = table(got$Temporada)
   s = 1
   if (t > 1){
@@ -153,13 +150,12 @@ z = function(t){
 }
 
 t = 4
-x = z(t)
-print(x)
+res = unico_episodio(t)
+print(res)
 
 
 #Nona Questão:
-got = read.csv("planilha_got.csv")
-graphic = function(nome) {
+histograma = function(nome) {
   c = length(got$Temporada)
   t = 1
   i = 1
@@ -177,9 +173,13 @@ graphic = function(nome) {
     }
   }
   brk = c(0, 1, 2, 3, 4, 5, 6, 7, 8)
-  graph = hist(qq, main = nome, xlab = "Temporada", ylab = "Ocorrência", xlim = c(0, 9), ylim = c(0, 10), right = TRUE, breaks = brk, col = "yellow", border = "black")
+  color = c("blue", "gray")
+  xl = "Temporada"
+  yl = "Ocorrência"
+  graph = hist(qq, main = nome, xlab = xl, ylab = yl, xlim = c(0, 9), ylim = c(0, 10), right = TRUE, breaks = brk, col = color, border = "black")
 } 
 #Cersei Lannister(Lena Headey)
 #Bran Stark(Isaac Hempstead)
-nm = "Eddard 'Ned' Stark(Sean Bean)"
-graphic(nm)
+#"Eddard 'Ned' Stark(Sean Bean)"
+nome = "Bran Stark(Isaac Hempstead)"
+histograma(nome)
