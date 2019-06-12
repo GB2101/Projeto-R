@@ -1,4 +1,4 @@
-#Projeto de Estatística
+#Projeto de Estat�?stica
 #Gabriel Braz Cavalcante Silva (gbcs)
 #Eduardo Guimarães Medeiros (egm3)
 
@@ -168,7 +168,7 @@ print(res)
 
 
 #Nona Questão:
-# De início, calculamos a frequência do personagem em cada temporada, para isso utilizamos um metódo
+# De in�cio, calculamos a frequência do personagem em cada temporada, para isso utilizamos um metódo
 # semelhante ao da sexta questão. Dessa forma, utilizamos um inteiro, indicando a temporada, para  
 # cada episódio que o personagem aparece. Por fim, passamos esse vetor para o histograma.
 histograma = function(nome) {
@@ -189,13 +189,14 @@ histograma = function(nome) {
     }
   }
   brk = c(0, 1, 2, 3, 4, 5, 6, 7, 8)
-  color = c("hot pink","red","orange","yellow","green", "turquoise", "blue", "purple")
+  #color = c("red","orange","yellow","green", "blue", "purple")
+  color = c("#FF69B6", "#E70000", "#FF8C00", "#FFEF00", "#00811F", "#0044FF", "#760089")
   xl = "Temporada"
   yl = "Ocorrência"
   graph = hist(qq, main = nome, xlab = xl, ylab = yl, xlim = c(0, 9), ylim = c(0, 10), right = TRUE, breaks = brk, col = color, border = "black")
 } 
-#Cersei Lannister(Lena Headey)
-#Bran Stark(Isaac Hempstead)
-#"Eddard 'Ned' Stark(Sean Bean)"
+
+#nome = "Bran Stark(Isaac Hempstead)"
+#nome = "Eddard 'Ned' Stark(Sean Bean)"
 nome = "Cersei Lannister(Lena Headey)"
 histograma(nome)
