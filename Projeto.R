@@ -1,4 +1,4 @@
-#Projeto de Estat�?stica
+#Projeto de Estatística
 #Gabriel Braz Cavalcante Silva (gbcs)
 #Eduardo Guimarães Medeiros (egm3)
 
@@ -168,7 +168,7 @@ print(res)
 
 
 #Nona Questão:
-# De in�cio, calculamos a frequência do personagem em cada temporada, para isso utilizamos um metódo
+# De início, calculamos a frequência do personagem em cada temporada, para isso utilizamos um metódo
 # semelhante ao da sexta questão. Dessa forma, utilizamos um inteiro, indicando a temporada, para  
 # cada episódio que o personagem aparece. Por fim, passamos esse vetor para o histograma.
 histograma = function(nome) {
@@ -189,7 +189,7 @@ histograma = function(nome) {
     }
   }
   brk = c(0, 1, 2, 3, 4, 5, 6, 7, 8)
-  #color = c("red","orange","yellow","green", "blue", "purple")
+  #color = c("hot pink","red","orange","yellow","green", "turquoise", "blue", "purple")
   color = c("#FF69B6", "#E70000", "#FF8C00", "#FFEF00", "#00811F", "#0044FF", "#760089")
   xl = "Temporada"
   yl = "Ocorrência"
